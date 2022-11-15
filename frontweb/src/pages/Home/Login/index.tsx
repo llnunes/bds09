@@ -1,15 +1,15 @@
 import './styles.css';
 
-import { Link, NavLink, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { useContext, useState } from 'react';
 
-import { AuthContext } from '../../../AuthContext';
-import { saveAuthData } from '../../../util/storage';
-import { getTokenData } from '../../../util/auth';
-import { requestBackendLogin } from '../../../util/requests';
-import ButtonIcon from '../../../components/ButtonIcon';
 import { useForm } from 'react-hook-form';
+import { AuthContext } from 'AuthContext';
+import { requestBackendLogin } from 'util/requests';
+import { saveAuthData } from 'util/storage';
+import { getTokenData } from 'util/auth';
+import ButtonIcon from 'components/ButtonIcon';
 
 type FormData = {
   username: string;
@@ -23,7 +23,7 @@ type LocationState = {
 const Login = () => {
   const location = useLocation<LocationState>();
 
-  const { from } = location.state || { from: { pathname: '/auth' } };
+  const { from } = location.state || { from: { pathname: '/movies' } };
 
   const { setAuthContextData } = useContext(AuthContext);
 
@@ -99,9 +99,7 @@ const Login = () => {
         </div>
 
         <div className="login-submit">
-          <NavLink to="/movies">
             <ButtonIcon text="Fazer login" />
-          </NavLink>
         </div>
       </form>
     </div>

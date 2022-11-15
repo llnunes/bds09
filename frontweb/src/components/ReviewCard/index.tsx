@@ -1,5 +1,6 @@
+import ButtonIcon from 'components/ButtonIcon';
 import { NavLink } from 'react-router-dom';
-import ButtonIcon from '../ButtonIcon';
+
 import './styles.css';
 
 const ReviewCard = () => {

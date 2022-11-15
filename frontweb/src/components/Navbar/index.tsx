@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 
 import { useContext } from 'react';
+import { AuthContext } from 'AuthContext';
+import { getTokenData, isAuthenticated } from 'util/auth';
+import { removeAuthData } from 'util/storage';
+import history from 'util/history';
 
-import history from '../../util/history';
-import { removeAuthData } from '../../util/storage';
-import { AuthContext } from '../../AuthContext';
-import { getTokenData, isAuthenticated } from '../../util/auth';
+
 
 const Navbar = () => {
   const { authContextData, setAuthContextData } = useContext(AuthContext);

@@ -1,17 +1,24 @@
+import ReviewMovie from 'components/ReviewMovie';
+import { Review } from 'types/review';
 
 import './styles.css';
 
-const ReviewListing = () => {
-    return (
-        <div className="base-card review-listing-card">
-      <div className="mb-4">
-        <input type="text" className='form-control base-input input-disabled' placeholder="Email" name="username" disabled/>
-        <div className="invalid-feedback d-block"></div>
-      </div>
-      
-    </div>
-
-    );
+type Props = {
+  reviews: Review[];
 }
+
+const ReviewListing = ({reviews} : Props) => {
+
+  return (
+    <div className="row">
+      {reviews && reviews?.map((review) => (
+          <div className="col-sm-6 col-lg-4 col-xl-3" key={review.id}>
+            <ReviewMovie review={review} /> 
+          </div>
+        ))
+      }
+    </div>
+  );
+};
 
 export default ReviewListing;
