@@ -10,13 +10,15 @@ type Props = {
 const ReviewListing = ({reviews} : Props) => {
 
   return (
-    <div className="row">
-      {reviews && reviews?.map((review) => (
-          <div className="col-sm-6 col-lg-4 col-xl-3" key={review.id}>
-            <ReviewMovie review={review} /> 
-          </div>
-        ))
-      }
+    <div className="base-card review-listing-card">
+      <div className="row">
+        {reviews && reviews?.map((review) => (
+            <div className="col-sm-12 col-lg-12 col-xl-12" key={review.id}>
+              <ReviewMovie review={review} /> 
+            </div>
+          ))
+        }
+      </div>
     </div>
   );
 };

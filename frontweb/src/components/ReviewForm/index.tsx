@@ -1,10 +1,12 @@
 import './styles.css';
-import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { requestBackend } from 'util/requests';
 
 import { AxiosRequestConfig } from 'axios';
 import { Review } from 'types/review';
+import ButtonIcon from 'components/ButtonIcon';
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 type Props = {
   movieId: string;
@@ -17,14 +19,14 @@ type FormData = {
 };
 
 const ReviewForm = ({ movieId, onInsertReview }: Props) => {
+  const [hasError, setHasError] = useState(false);
+
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
   } = useForm<FormData>();
-
-  const history = useHistory();
 
   const onSubmit = (formData: FormData) => {
     formData.movieId = parseInt(movieId);
@@ -38,16 +40,44 @@ const ReviewForm = ({ movieId, onInsertReview }: Props) => {
 
     requestBackend(config)
       .then((response) => {
+        setHasError(false);
         setValue('text', '');
         onInsertReview(response.data);
         console.log('sucesso ao salvar', response);
       })
       .catch((error) => {
+        setHasError(true);
         console.log('error ao salvar', error);
       });
   };
 
-  return <h1>teste</h1>;
+  return (
+    <div className="base-card review-card">
+      {hasError && (
+        <div className="alert alert-danger">
+          Erro ao tentar recuperar reviews
+        </div>
+      )}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="mb-4">
+          <input
+            {...register('text', { required: 'Campo obrigatório' })}
+            type="text"
+            className={`form-control base-input ${
+              errors.text ? 'is-invalid' : ''
+            }`}
+            placeholder="Deixe sua avaliação aqui"
+            name="text"
+          />
+          <div className="invalid-feedback d-block">{errors.text?.message}</div>
+
+          <div className="review-submit">            
+              <ButtonIcon text="SALVAR AVALIAÇÃO" />            
+          </div>
+        </div>
+      </form>
+    </div>
+  );
 };
 
 export default ReviewForm;
