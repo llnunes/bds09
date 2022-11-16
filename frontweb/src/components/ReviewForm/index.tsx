@@ -6,7 +6,6 @@ import { AxiosRequestConfig } from 'axios';
 import { Review } from 'types/review';
 import ButtonIcon from 'components/ButtonIcon';
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
 
 type Props = {
   movieId: string;
